@@ -171,7 +171,7 @@ async function Check_Watchlist(member, type) {
         // Add the user/role mentions
         for (entity of alerts.entities.split("|")) {
             // Check if ID belongs to a role
-            const role = await member.guild.roles.fetch(id).catch(() => null);
+            const role = await member.guild.roles.fetch(entity).catch(() => null);
 
             // Add the entity to the mentions
             mentions += `<@${role ? '&' : ''}${entity}> `;
