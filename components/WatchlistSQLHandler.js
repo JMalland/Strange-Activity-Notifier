@@ -1,4 +1,4 @@
-const { Guild, CommandInteraction, InteractionCollector } = require('discord.js');
+const { Guild, CommandInteraction } = require('discord.js');
 const { Database } = require('./Database.js');
 
 const db = new Database('./watchlist.db');
