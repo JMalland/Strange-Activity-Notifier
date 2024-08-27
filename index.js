@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits, EmbedBuilder, Events, Events: { ClientEvents }, REST, Routes, Collection, PermissionsBitField, DefaultWebSocketManagerOptions } = require('discord.js');
+const { Client, GatewayIntentBits, REST, Routes, Collection } = require('discord.js');
 const config = require("./config.json")
 const fs = require('fs');
 const path = require('path');
