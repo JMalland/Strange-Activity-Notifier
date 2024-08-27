@@ -169,9 +169,13 @@ async function Check_Watchlist(member, type) {
         // String value to add user/role mentions to
         let mentions = "";
         // Add the user/role mentions
-        alerts.entities.split("|").forEach((entity) => { mentions += `<@${entity}> `; });
-        // Trim the string
-        //mentions = mentions.trim();
+        for (entity of alerts.entities.split("|")) {
+            // Check if ID belongs to a role
+            const role = await interaction.guild.roles.fetch(id).catch(() => null);
+
+            // Add the entity to the mentions
+            mentions += `<@${role ? '&' : ''}${entity}> `;
+        }
 
         // The user was banned from the server, or meets the Watchlist requirements
         if (type == 'banned' || exceeded_rejoin_limit || determinant_value < time_limit) {
