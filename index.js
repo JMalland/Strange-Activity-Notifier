@@ -115,12 +115,12 @@ async function Check_Watchlist(member, type) {
     const timeDifference = currentTimestamp - accountCreatedTimestamp; // Difference in milliseconds
 
     // Convert milliseconds to various units
-    const seconds = Math.floor(timeDifference / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const months = Math.floor((days % 365.25) / 30.44); // Average days in a month (30.44)
-    const years = Math.floor(days / 365.25); // Using 365.25 to approximate leap years
+    const seconds = timeDifference / 1000;
+    const minutes = seconds / 60;
+    const hours = minutes / 60;
+    const days = hours / 24;
+    const months = (days % 365.25) / 30.44; // Average days in a month (30.44)
+    const years = days / 365.25; // Using 365.25 to approximate leap years
 
     // Parse for the type of message to display
     switch(type) {
@@ -180,7 +180,7 @@ async function Check_Watchlist(member, type) {
         // The user was banned from the server, or meets the Watchlist requirements
         if (type == 'banned' || exceeded_rejoin_limit || determinant_value < time_limit) {
             // Send the Embed in the Watchlist-Alerts log channel
-            log_channel.send({ content: mentions, embeds: [Create_Embed(display_order, member.user, determinant_value, time_unit, userdata.join_count, message, color)] });
+            log_channel.send({ content: mentions, embeds: [Create_Embed(display_order, member.user, determinant_value.toFixed(2), time_unit, userdata.join_count, message, color)] });
         }
     }
 }
