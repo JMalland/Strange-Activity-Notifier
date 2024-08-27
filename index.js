@@ -56,9 +56,6 @@ async function readCommandFiles(dir) {
  * @param {String} GuildID 
  */
 async function Reload_Guild_Commands(GuildID) {
-    // Reload the command files
-    await readCommandFiles('commands');
-
     // Update the server-side commands
     try {
         console.log(`(Guild: ${GuildID})\t Started refreshing guild commands.`);
