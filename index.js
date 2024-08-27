@@ -1,10 +1,8 @@
 const { Client, GatewayIntentBits, EmbedBuilder, Events, Events: { ClientEvents }, REST, Routes, Collection, PermissionsBitField, DefaultWebSocketManagerOptions } = require('discord.js');
-//const client = new Discord.Client();
 const config = require("./config.json")
 const fs = require('fs');
 const path = require('path');
 const { Database } = require('./components/Database.js');
-//const { Check_Watchlist } = require('./components/CheckWatchlist');
 const { Get_Watchlist, Get_Alerts, Get_Userdata, Get_Log_Channels, Build_Table, Reset_Guild_Data } = require('./components/WatchlistSQLHandler.js');
 
 // Set the REST API version
@@ -140,10 +138,6 @@ async function Check_Watchlist(member, type) {
             var message = '𝑩𝒂𝒏𝒏𝒆𝒅 𝑭𝒓𝒐𝒎 𝑺𝒆𝒓𝒗𝒆𝒓';
             var color = '#000000';
             break;
-        //case('kicked'):
-        //    var message = '𝑲𝒊𝒄𝒌𝒆𝒅 𝑭𝒓𝒐𝒎 𝑺𝒆𝒓𝒗𝒆𝒓';
-        //    var color = '#925b1c';
-        //    break;
     }
 
     // Value to compare with Watchlist account time_limit

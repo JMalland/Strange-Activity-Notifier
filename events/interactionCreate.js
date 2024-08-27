@@ -1,7 +1,6 @@
 module.exports = {
     event: 'interactionCreate',
     async execute(interaction) {
-        //console.log("Interaction Triggered!");
         if (interaction.isCommand()) {
             console.log(`(Guild: ${interaction.guild.id})\t Command triggered: ${interaction.commandName}`);
             const command = interaction.client.commands.get(interaction.commandName);

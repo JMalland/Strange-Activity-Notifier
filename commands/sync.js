@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, CommandInteraction } = require('discord.js');
-const { Reload_Guild_Commands } = require('../test.js');
+const { Reload_Guild_Commands } = require('../index.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
