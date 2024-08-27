@@ -144,6 +144,17 @@ function Starts_With_User_Info(user, age, unit, join_count, display_order) {
     return(Field_List);
 }
 
+function Get_Action_Icon(type) {
+    switch(type) {
+        case ('𝑱𝒐𝒊𝒏𝒆𝒅 𝑻𝒉𝒆 𝑺𝒆𝒓𝒗𝒆𝒓'):
+            return(':inbox_tray:');
+        case ('𝑳𝒆𝒇𝒕 𝑻𝒉𝒆 𝑺𝒆𝒓𝒗𝒆𝒓'):
+            return(':outbox_tray:');
+        case ('𝑩𝒂𝒏𝒏𝒆𝒅 𝑭𝒓𝒐𝒎 𝑺𝒆𝒓𝒗𝒆𝒓'):
+            return(':skull_crossbones:');
+    }
+}
+
 /**
  * Creates the field blocks for when the display starts with Join_Frequency
  * @param {User} user 
@@ -215,7 +226,7 @@ function Embed_With_Title(user, age, unit, join_count, action, display_order) {
             name: user.username,
             iconURL: user.displayAvatarURL(),
         })
-        .setTitle(`:inbox_tray:  \`${action}\`\n\n__${title}:__  \`${value}\`\n`)
+        .setTitle(`${Get_Action_Icon(action)}  \`${action}\`\n\n__${title}:__  \`${value}\`\n`)
         .addFields(...fields)
         .setThumbnail(user.displayAvatarURL())
         .setFooter({
@@ -246,7 +257,7 @@ function Embed_With_No_Title(user, age, unit, join_count, action, display_order)
             name: user.username,
             iconURL: user.displayAvatarURL(),
         })
-        .setTitle(`:inbox_tray:  \`${action}\``)
+        .setTitle(`${Get_Action_Icon(action)}  \`${action}\``)
         .addFields(...fields)
         .setThumbnail(user.displayAvatarURL())
         .setFooter({
