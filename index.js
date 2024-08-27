@@ -1,9 +1,10 @@
+const { Get_Watchlist, Get_Alerts, Get_Userdata, Get_Log_Channels, Build_Table, Reset_Guild_Data } = require('./components/WatchlistSQLHandler.js');
 const { Client, GatewayIntentBits, REST, Routes, Collection } = require('discord.js');
+const { Create_Embed } = require('./components/WatchlistEmbed.js');
+const { Database } = require('./components/Database.js');
 const config = require("./config.json")
 const fs = require('fs');
 const path = require('path');
-const { Database } = require('./components/Database.js');
-const { Get_Watchlist, Get_Alerts, Get_Userdata, Get_Log_Channels, Build_Table, Reset_Guild_Data } = require('./components/WatchlistSQLHandler.js');
 
 // Set the REST API version
 const rest = new REST({ version: '9' }).setToken(config.token);
