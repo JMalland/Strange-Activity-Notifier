@@ -82,8 +82,8 @@ module.exports = {
             choices = choices.filter(choice => choice !== interaction.options.getString('first') && choice !== interaction.options.getString('second'));
         }
         
-        // Return the filtered options
-        const filtered = choices.filter(choice => choice.startsWith(focusedOption.value));
+        // Return the filtered options -- Not case sensitive
+        const filtered = choices.filter(choice => choice.toLowerCase().startsWith(focusedOption.value.toLowerCase()));
         await interaction.respond(
             filtered.map(choice => ({ name: choice.replace('_', ' '), value: choice })),
         );
