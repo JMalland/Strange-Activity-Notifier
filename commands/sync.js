@@ -11,13 +11,16 @@ module.exports = {
      * @returns Nothing
      */
     async execute(interaction) {
+        // Reply immediately, so guild command-reload doesn't timeout the interaction.
+        interaction.reply({ content: "Reloading bot commands...", ephemeral: true });
+        
         // Refresh the server-side commands for the guild
-        Reload_Guild_Commands(interaction.guild.id)
-        .then(() => {
-                interaction.reply({ content: `Successfully reloaded bot commands.`, ephemeral: true });
+        await Reload_Guild_Commands(interaction.guild.id)
+            .then(() => {
+                interaction.followUp({ content: `Successfully reloaded bot commands.`, ephemeral: true });
             })
             .catch(() => {
-                interaction.reply({ content: `Failed to reload bot commands.`, ephemeral: true });
-            })
+                interaction.followUp({ content: `Failed to reload bot commands.`, ephemeral: true });
+            });
         }
 }
