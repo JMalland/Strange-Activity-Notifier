@@ -12,7 +12,7 @@ module.exports = {
      */
     async execute(interaction) {
         // Reply immediately, so guild command-reload doesn't timeout the interaction.
-        interaction.reply({ content: "Reloading bot commands...", ephemeral: true });
+        await interaction.reply({ content: "Reloading bot commands...", ephemeral: true });
         
         // Refresh the server-side commands for the guild
         await Reload_Guild_Commands(interaction.guild.id)
