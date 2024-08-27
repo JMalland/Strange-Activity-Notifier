@@ -242,9 +242,9 @@ async function handleAlertSetup(interaction) {
     db.update('alerts', 'server_id', interaction.guild.id, ['entities', 'channels'], [entity_ids.join("|"), log_channel_ids.join("|")])
         .then(async () => {
             // Store the update message to be sent
-            let update_message = `- ${action == 'Remove' ? action.slice(0, -1) : action}ed ${selection_type}: <${selector + selection_id}> to Watchlist-Alert list.`;
+            let update_message = `- ${action == 'Add' ? action : action.slice(0, -1)}ed ${selection_type}: <${selector + selection_id}> to Watchlist-Alert list.`;
             // Store the message to be logged
-            let log_message = `${action == 'Remove' ? action.slice(0, -1) : action}ed ${selection_id} to guild Watchlist-Alert ${selection_type}s.`;
+            let log_message = `${action == 'Add' ? action : action.slice(0, -1)}ed ${selection_id} ${action == 'Add' ? 'to' : 'from'} guild Watchlist-Alert ${selection_type}s.`;
 
             // Announce the Watchlist-Alert changes
             await Announce_Changes(interaction, update_message, log_message);
