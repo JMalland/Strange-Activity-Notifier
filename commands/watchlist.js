@@ -233,6 +233,9 @@ async function handleAlertSetup(interaction) {
             if (entity) entity_ids.splice(entity_ids.indexOf(entity.id));
             break;
         case('List'):
+            await interaction.reply({ content: `Really sorry about this, but this option isn't functional at the moment.` });
+            await interaction.followUp({ content: `I'm sure that if you were to go and meditate for a few weeks, when you come back, I'll be able to do this for you.` });
+            return;
     }
 
     // Insert table values
