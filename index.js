@@ -159,9 +159,12 @@ async function Check_Watchlist(member, type) {
     else {                              // Years
         determinant_value = years;
     }
+
+    // Store the log channels
+    let log_channel_list = await Get_Log_Channels(member.guild, alerts.channels.split("|"));
     
     // Record any suspicious members in the Watchlist-Alert channels
-    for (log_channel of Get_Log_Channels(member.guild, alerts.channels.split("|"))) {
+    for (log_channel of log_channel_list) {
         // String value to add user/role mentions to
         let mentions = "";
         // Add the user/role mentions
