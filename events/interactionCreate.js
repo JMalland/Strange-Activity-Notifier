@@ -2,7 +2,7 @@ module.exports = {
     event: 'interactionCreate',
     async execute(interaction) {
         if (interaction.isCommand()) {
-            console.log(`(Guild: ${interaction.guild.id})\t Command triggered: /${interaction.commandName} ${interaction.options.getSubcommand(false).replace('undefined', '')}`);
+            console.log(`(Guild: ${interaction.guild.id})\t Command triggered: /${interaction.commandName} ${toString(interaction.options.getSubcommand(false)).replace('null', '')}`);
             const command = interaction.client.commands.get(interaction.commandName);
 
 			if (!command) { // Command was not found in the files
