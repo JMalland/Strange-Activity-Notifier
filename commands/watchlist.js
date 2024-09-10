@@ -174,7 +174,7 @@ async function handleAlertSetup(interaction) {
         return;
     }
     // There was no entity provided
-    else if (!channel && !entity) {
+    else if (!channel && !entity && action != "List") {
         await interaction.reply({ content: `NonOptionalFieldError: No channel or mentionable entity was provided!`, ephemeral: true });
         return;
     }
