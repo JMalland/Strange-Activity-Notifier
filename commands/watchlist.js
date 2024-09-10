@@ -245,19 +245,19 @@ async function handleAlertSetup(interaction) {
                 // The entity is a role
                 if (role) {
                     // Add to the role list
-                    roles += `- <@&${entity}>\n`;
+                    roles += `     <@&${entity}>\n`;
                 }
                 // The entity is a user
                 else {
                     // Add to the user list
-                    users += `- <@${entity}>\n`;
+                    users += `     <@${entity}>\n`;
                 }
             }
             
             // List all channels
             for (let channel of log_channel_ids) {
                 // Add to the channel list
-                channels += `- <#${channel}>\n`;
+                channels += `     <#${channel}>\n`;
             }
 
             // Format the channel list
