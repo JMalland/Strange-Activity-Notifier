@@ -233,8 +233,49 @@ async function handleAlertSetup(interaction) {
             if (entity) entity_ids.splice(entity_ids.indexOf(entity.id));
             break;
         case('List'):
-            await interaction.reply({ content: `Really sorry about this, but this option isn't functional at the moment.` });
-            await interaction.followUp({ content: `I'm sure that if you were to go and meditate for a few weeks, when you come back, I'll be able to do this for you.` });
+            let roles = "";
+            let users = "";
+            let channels = "";
+
+            // List all entities
+            for (let entity of entity_ids) {
+                // Check if ID belongs to a role
+                const role = await member.guild.roles.fetch(entity).catch(() => null);
+
+                // The entity is a role
+                if (role) {
+                    // Add to the role list
+                    roles += `- <@&${entity}>\n`;
+                }
+                // The entity is a user
+                else {
+                    // Add to the user list
+                    users += `- <@${entity}>\n`;
+                }
+            }
+            
+            // List all channels
+            for (let channel of log_channel_ids) {
+                // Add to the channel list
+                channels += `- <#${channel}>\n`;
+            }
+
+            // Format the channel list
+            if (channels.trim() != "") {
+                channels = "**Channels:**\n" + channels;
+            }
+
+            // Format the role list
+            if (roles.trim() != "") {
+                roles = "**Roles:**\n" + roles;
+            }
+
+            // Format the user list
+            if (users.trim() != "") {
+                users = "**Users:**\n" + users;
+            }
+
+            await interaction.reply({ content: `${users}\n${roles}\n${channels}`, ephemeral: true });
             return;
     }
 
