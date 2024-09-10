@@ -260,22 +260,35 @@ async function handleAlertSetup(interaction) {
                 channels += `     <#${channel}>\n`;
             }
 
-            // Format the channel list
-            if (channels.trim() != "") {
-                channels = "**Channels:**\n" + channels;
-            }
-
             // Format the role list
             if (roles.trim() != "") {
-                roles = "**Roles:**\n" + roles;
+                roles = "**Roles:**\n" + roles + "\n"; // Add extra spacer newline
+            }
+            // There is no role list
+            else {
+                roles = "";
             }
 
             // Format the user list
             if (users.trim() != "") {
-                users = "**Users:**\n" + users;
+                users = "**Users:**\n" + users + "\n"; // Add extra spacer newline
+            }
+            // There is no user list
+            else {
+                users = "";
             }
 
-            await interaction.reply({ content: `${users}\n${roles}\n${channels}`, ephemeral: true });
+            // Format the channel list
+            if (channels.trim() != "") {
+                channels = "**Channels:**\n" + channels;
+            }
+            // There is no channel list
+            else {
+                channels = "";
+            }
+
+            // Send the alert-list to the executor
+            await interaction.reply({ content: `${users}${roles}${channels}`, ephemeral: true });
             return;
     }
 
