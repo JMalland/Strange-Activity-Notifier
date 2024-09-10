@@ -275,7 +275,7 @@ async function handleAlertSetup(interaction) {
                 users = "**Users:**\n" + users;
             }
 
-            await interaction.reply({ content: `${users}\n${roles}\n${channels}`, ephemeral: true });
+            await interaction.reply({ content: `${users}${roles}${channels}`, ephemeral: true });
             return;
     }
 
