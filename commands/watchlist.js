@@ -202,15 +202,15 @@ async function handleAlertSetup(interaction) {
         // Store the entity's ID
         selection_id = entity.id;
 
-        // The provided type is a User
-        if (entity instanceof User) {
-            selection_type = 'user';
-            selector = '@';
-        }
         // The provided type is a Role
         if (entity instanceof Role) {
             selection_type = 'role';
             selector = '@&';
+        }
+        // The provided type is a User
+        else {
+            selection_type = 'user';
+            selector = '@';
         }
     }
 
