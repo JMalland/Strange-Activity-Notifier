@@ -240,7 +240,7 @@ async function handleAlertSetup(interaction) {
             // List all entities
             for (let entity of entity_ids) {
                 // Check if ID belongs to a role
-                const role = await member.guild.roles.fetch(entity).catch(() => null);
+                const role = await interaction.guild.roles.fetch(entity).catch(() => null);
 
                 // The entity is a role
                 if (role) {
