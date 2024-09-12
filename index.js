@@ -119,7 +119,7 @@ async function Check_Watchlist(member, type) {
     const minutes = seconds / 60;
     const hours = minutes / 60;
     const days = hours / 24;
-    const months = (days % 365.25) / 30.44; // Average days in a month (30.44)
+    const months = days / 30.44; // Average days in a month (30.44)
     const years = days / 365.25; // Using 365.25 to approximate leap years
 
     // Parse for the type of message to display
