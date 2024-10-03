@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, CommandInteraction, AutocompleteInteraction, User, Role } = require('discord.js');
 const { Database } = require('../components/Database.js');
 const { Announce_Changes, Get_Alerts } = require('../components/WatchlistSQLHandler.js');
+const { Create_Embed, Filter_Report_Type } = require('../components/WatchlistEmbed.js');
 
 // Create/connect to the database
 const db = new Database('./watchlist.db');
@@ -52,6 +53,20 @@ module.exports = {
                         .setDescription('The Watchlist-Alert entity to be utilized.')
                         .setRequired(false)
                 )
+        )
+        .addSubcommand(subcommand => 
+            subcommand.setName('demo')
+                .setDescription('Send a demonstration report to the Watchlist-Alert channels.')
+                .addUserOption(option => 
+                    option.setName('user')
+                        .setDescription('Which user should be displayed in the fake Watchlist report?')
+                        .setRequired(false)
+                )
+                /*.addChannelOption(option => 
+                    option.setName('channel')
+                        .setDescription('The channel to be utilized.')
+                        .setRequired(false)
+                )*/
         ),
     
     /**
@@ -69,6 +84,9 @@ module.exports = {
         }
         else if (subcommand === 'alert') {
             await handleAlertSetup(interaction);
+        }
+        else if (subcommand === 'demo') {
+            await handleDemoReport(interaction);
         }
     },
 
@@ -303,4 +321,18 @@ async function handleAlertSetup(interaction) {
             // Announce the Watchlist-Alert changes
             await Announce_Changes(interaction, update_message, log_message);
         })
+}
+
+/**
+ * Execute the '/watchlist demo' command
+ * @param {CommandInteraction} interaction 
+ * @returns 
+ */
+async function handleDemoReport(interaction) {
+    // Get the entity being used
+    const user = interaction.options.getMentionable('entity');
+    // Get the channel being used
+    //const channel = interaction.options.getChannel('channel');
+
+
 }

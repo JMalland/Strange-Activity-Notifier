@@ -1,6 +1,6 @@
 const { Get_Watchlist, Get_Alerts, Get_Userdata, Get_Log_Channels, Build_Table, Reset_Guild_Data } = require('./components/WatchlistSQLHandler.js');
 const { Client, GatewayIntentBits, REST, Routes, Collection } = require('discord.js');
-const { Create_Embed } = require('./components/WatchlistEmbed.js');
+const { Create_Embed, Filter_Report_Type } = require('./components/WatchlistEmbed.js');
 const { Database } = require('./components/Database.js');
 const config = require("./config.json")
 const fs = require('fs');
@@ -123,20 +123,9 @@ async function Check_Watchlist(member, type) {
     const years = months / 12; // Using 365.25 to approximate leap years
 
     // Parse for the type of message to display
-    switch(type) {
-        case('join'):
-            var message = '𝑱𝒐𝒊𝒏𝒆𝒅 𝑻𝒉𝒆 𝑺𝒆𝒓𝒗𝒆𝒓';
-            var color = '#1b901b';
-            break;
-        case('exit'):
-            var message = '𝑳𝒆𝒇𝒕 𝑻𝒉𝒆 𝑺𝒆𝒓𝒗𝒆𝒓';
-            var color = '#921c1c';
-            break;
-        case('banned'):
-            var message = '𝑩𝒂𝒏𝒏𝒆𝒅 𝑭𝒓𝒐𝒎 𝑺𝒆𝒓𝒗𝒆𝒓';
-            var color = '#000000';
-            break;
-    }
+    var filter = Filter_Report_Type(type);
+    var message = filter.message;
+    var color = filter.message;
 
     // Value to compare with Watchlist account time_limit
     let determinant_value;

@@ -302,6 +302,35 @@ function Create_Embed(display_order, user, age, unit, join_count, action, color)
     }
 }
 
+function Filter_Report_Type(type) {
+    let message, color = "";
+    switch(type) {
+        case('join'):
+            message = '𝑱𝒐𝒊𝒏𝒆𝒅 𝑻𝒉𝒆 𝑺𝒆𝒓𝒗𝒆𝒓';
+            color = '#1b901b';
+            break;
+        case('exit'):
+            message = '𝑳𝒆𝒇𝒕 𝑻𝒉𝒆 𝑺𝒆𝒓𝒗𝒆𝒓';
+            color = '#921c1c';
+            break;
+        case('banned'):
+            message = '𝑩𝒂𝒏𝒏𝒆𝒅 𝑭𝒓𝒐𝒎 𝑺𝒆𝒓𝒗𝒆𝒓';
+            color = '#000000';
+            break;
+    }
+
+    if (message === "" || color === "") {
+        throw new Error("InvalidReportType: Message='" + message + "', Color='" + color +"'");
+    }
+
+    // Return the message and color.
+    return({
+        "message": message,
+        "color": color
+    });
+}
+
 module.exports = {
-    Create_Embed
+    Create_Embed,
+    Filter_Report_Type
 }
