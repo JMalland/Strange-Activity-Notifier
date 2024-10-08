@@ -23,7 +23,7 @@ function User_Info(user) {
     return([
         {
             name: "__Display Name__   ",
-            value: `\`<@${user.displayName}>\``,
+            value: `<@${user.displayName}>`,
             inline: true
         },
         {
