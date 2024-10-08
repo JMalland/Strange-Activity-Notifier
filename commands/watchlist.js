@@ -57,6 +57,10 @@ module.exports = {
         .addSubcommand(subcommand => 
             subcommand.setName('demo')
                 .setDescription('Send a demonstration report to the Watchlist-Alert channels.')
+                .addStringOption(option =>
+                    option.setName('type')
+                        .setDescription('What type of report will be send? (Join, Exit, Banned)')
+                        .setRequired(false)
                 .addUserOption(option => 
                     option.setName('user')
                         .setDescription('Which user should be displayed in the fake Watchlist report?')
@@ -108,6 +112,10 @@ module.exports = {
             case('alert'):
                 // The types of alert actions
                 choices = ['Add', 'List', 'Remove'];
+                break;
+            case('type'):
+                // The types of report events
+                choices = ['Join', 'Exit', 'Banned'];
                 break;
         }
 
@@ -331,6 +339,8 @@ async function handleAlertSetup(interaction) {
 async function handleDemoReport(interaction) {
     // Get the entity being used
     const user = interaction.options.getMentionable('entity');
+    // Get the type of report
+    const type = interaction.options.getString('type');
     // Get the channel being used
     //const channel = interaction.options.getChannel('channel');
 
