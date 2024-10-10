@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, CommandInteraction, AutocompleteInteraction, User, Role } = require('discord.js');
 const { Database } = require('../components/Database.js');
 const { Announce_Changes, Get_Alerts } = require('../components/WatchlistSQLHandler.js');
-const { Create_Embed, Filter_Report_Type } = require('../components/WatchlistEmbed.js');
+const { Check_Watchlist } = require('../components/WatchlistEmbed.js');
 
 // Create/connect to the database
 const db = new Database('./watchlist.db');
@@ -344,5 +344,16 @@ async function handleDemoReport(interaction) {
     // Get the channel being used
     //const channel = interaction.options.getChannel('channel');
 
+    // User Can Be Null
+    // Need to Move Check_Watchlist() command from index.js
+    // Move to WatchlistEmbed.js
+    // Also need to add require('Database.js') to WatchlistEmbed.js
 
+    if (user == null) {
+        // Create a "default" user (use the Bot's user info).
+        // user = BotInfo 
+    }
+
+    // Send out a Watchlist Check -- Demonstration
+    Check_Watchlist(user, type, true);
 }
