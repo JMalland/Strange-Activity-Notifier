@@ -61,6 +61,7 @@ module.exports = {
                     option.setName('type')
                         .setDescription('What type of report will be send? (Join, Exit, Banned)')
                         .setRequired(false)
+                )
                 .addUserOption(option => 
                     option.setName('user')
                         .setDescription('Which user should be displayed in the fake Watchlist report?')
@@ -344,16 +345,55 @@ async function handleDemoReport(interaction) {
     // Get the channel being used (if any)
     const channel = interaction.options.getChannel('channel');
 
+    interaction.client.user
+
     // User Can Be Null
     // Need to Move Check_Watchlist() command from index.js
     // Move to WatchlistEmbed.js
     // Also need to add require('Database.js') to WatchlistEmbed.js
 
     if (user == null) {
-        // Create a "default" user (use the Bot's user info).
-        // user = BotInfo 
+        // Set the demo user to have the Bot's information.
+        user = interaction.client.user;
     }
 
-    // Send out a Watchlist Check -- Demonstration
-    Check_Watchlist(user, type, false);
+    // Logging demo report to specific channel
+    if (channel != null) {
+        // Get the guild's row from the 'servers' table
+        let alerts = await Get_Alerts(interaction.guild.id);
+        let log_channel_ids = alerts.channels.split("|").filter(item => item !== '');
+
+        /* REWRITE LATER TO NOT DO WHAT I'M DOING BELOW ------ IT IS STUPID */
+
+        // Temporarily change the alert channels
+        db.update('alerts', 'server_id', interaction.guild.id, 'channels', [channel.id + ''].join('|'))
+        .then(async () => {
+            // Store the update message to be sent
+            let update_message = null;
+            // Store the message to be logged
+            let log_message = `Temporarily set Watchlist-Alert channels to ['${channel.id}'].`;
+
+            // Announce the Watchlist-Alert changes
+            await Announce_Changes(interaction, update_message, log_message);
+
+            // Send out a Watchlist Check -- Demonstration
+            await Check_Watchlist(user, type, false);
+            
+            // Put the alert channels back to their original values
+            db.update('alerts', 'server_id', interaction.guild.id, 'channels', log_channel_ids.join("|")).then(async () => {
+                // Store the update message to be sent
+                let update_message_2 = null;
+                // Store the message to be logged
+                let log_message_2 = `Reset Watchlist-Alert channels to original list.`
+
+                // Announce the Watchlist-Alert changes
+                await Announce_Changes(interaction, update_message_2, log_message_2);
+            })
+        })
+    }
+    // The demo report is being sent to all Watchlist-Alert channels
+    else {
+        // Send out a Watchlist Check -- Demonstration
+        await Check_Watchlist(user, type, false);
+    }
 }
