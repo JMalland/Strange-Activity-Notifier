@@ -338,9 +338,10 @@ function Filter_Report_Type(type) {
  * Checks whether the user should be logged in the Watchlist.
  * @param {GuildMember} member 
  * @param {String} type
+ * @param {Boolean} checkValid Used for Watchlist Demos
  * @returns Nothing
  */
-async function Check_Watchlist(member, type) {
+async function Check_Watchlist(member, type, checkValid=true) {
     // Get the watchlist data
     let watchlist = await Get_Watchlist(member.guild.id);
     // Get the alerts data
@@ -427,8 +428,8 @@ async function Check_Watchlist(member, type) {
             mentions += `<@${role ? '&' : ''}${entity}> `;
         }
 
-        // The user was banned from the server, or meets the Watchlist requirements
-        if (type == 'banned' || exceeded_rejoin_limit || determinant_value < time_limit) {
+        // This is a demo, or the user was banned from the server, or meets the Watchlist requirements
+        if (!checkValid || type == 'banned' || exceeded_rejoin_limit || determinant_value < time_limit) {
             // Send the Embed in the Watchlist-Alerts log channel
             log_channel.send({ content: mentions, embeds: [Create_Embed(display_order, member.user, determinant_value.toFixed(2), time_unit, userdata.join_count, message, color)] });
         }
