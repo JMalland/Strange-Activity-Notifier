@@ -359,37 +359,8 @@ async function handleDemoReport(interaction) {
 
     // Logging demo report to specific channel
     if (channel != null) {
-        // Get the guild's row from the 'servers' table
-        let alerts = await Get_Alerts(interaction.guild.id);
-        let log_channel_ids = alerts.channels.split("|").filter(item => item !== '');
-
-        /* REWRITE LATER TO NOT DO WHAT I'M DOING BELOW ------ IT IS STUPID */
-
-        // Temporarily change the alert channels
-        db.update('alerts', 'server_id', interaction.guild.id, 'channels', [channel.id + ''].join('|'))
-        .then(async () => {
-            // Store the update message to be sent
-            let update_message = null;
-            // Store the message to be logged
-            let log_message = `Temporarily set Watchlist-Alert channels to ['${channel.id}'].`;
-
-            // Announce the Watchlist-Alert changes
-            await Announce_Changes(interaction, update_message, log_message);
-
-            // Send out a Watchlist Check -- Demonstration
-            await Check_Watchlist(user, type, false);
-            
-            // Put the alert channels back to their original values
-            db.update('alerts', 'server_id', interaction.guild.id, 'channels', log_channel_ids.join("|")).then(async () => {
-                // Store the update message to be sent
-                let update_message_2 = null;
-                // Store the message to be logged
-                let log_message_2 = `Reset Watchlist-Alert channels to original list.`
-
-                // Announce the Watchlist-Alert changes
-                await Announce_Changes(interaction, update_message_2, log_message_2);
-            })
-        })
+        // Send out a Watchlist Check -- Demonstration -- to the specific channel
+        Check_Watchlist(user, type, false, channel);
     }
     // The demo report is being sent to all Watchlist-Alert channels
     else {

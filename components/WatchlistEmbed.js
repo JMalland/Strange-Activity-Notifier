@@ -1,4 +1,4 @@
-const { EmbedBuilder, User } = require('discord.js');
+const { GuildMember, GuildChannel, EmbedBuilder, User } = require('discord.js');
 const { Database } = require('Database.js');
 
 // Create the Watchlist Database
@@ -339,9 +339,10 @@ function Filter_Report_Type(type) {
  * @param {GuildMember} member 
  * @param {String} type
  * @param {Boolean} checkValid Used for Watchlist Demos
+ * @param {GuildChannel} customChannel Used for Watchlist Demos
  * @returns Nothing
  */
-async function Check_Watchlist(member, type, checkValid=true) {
+async function Check_Watchlist(member, type, checkValid=true, customChannel) {
     // Get the watchlist data
     let watchlist = await Get_Watchlist(member.guild.id);
     // Get the alerts data
@@ -414,6 +415,11 @@ async function Check_Watchlist(member, type, checkValid=true) {
 
     // Store the log channels
     let log_channel_list = await Get_Log_Channels(member.guild, alerts.channels.split("|"));
+
+    // Overwrite the log channel list with the Custom Channel
+    if (customChannel) {
+        log_channel_list = [customChannel];
+    }
     
     // Record any suspicious members in the Watchlist-Alert channels
     for (log_channel of log_channel_list) {
