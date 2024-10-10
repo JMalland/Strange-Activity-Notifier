@@ -66,11 +66,11 @@ module.exports = {
                         .setDescription('Which user should be displayed in the fake Watchlist report?')
                         .setRequired(false)
                 )
-                /*.addChannelOption(option => 
+                .addChannelOption(option => 
                     option.setName('channel')
-                        .setDescription('The channel to be utilized.')
+                        .setDescription('The specific channel to send the fake report.')
                         .setRequired(false)
-                )*/
+                )
         ),
     
     /**
@@ -341,8 +341,8 @@ async function handleDemoReport(interaction) {
     const user = interaction.options.getMentionable('entity');
     // Get the type of report
     const type = interaction.options.getString('type');
-    // Get the channel being used
-    //const channel = interaction.options.getChannel('channel');
+    // Get the channel being used (if any)
+    const channel = interaction.options.getChannel('channel');
 
     // User Can Be Null
     // Need to Move Check_Watchlist() command from index.js
