@@ -253,8 +253,10 @@ async function Announce_Changes(interaction, update_msg, log_msg) {
             continue;
         }
 
-        // Send the update message to the Watchlist log channel
-        await channel.send({ content: `${update_msg}` });
+        if (update_msg != undefined && update_msg != null) {
+            // Send the update message to the Watchlist log channel
+            await channel.send({ content: `${update_msg}` });
+        }
     }
 
     
