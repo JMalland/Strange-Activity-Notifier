@@ -1,4 +1,5 @@
 const { EmbedBuilder, User } = require('discord.js');
+const { Database } = require('Database.js');
 
 /**
  * Creates an Account_Age block
