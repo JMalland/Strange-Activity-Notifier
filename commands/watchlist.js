@@ -355,5 +355,5 @@ async function handleDemoReport(interaction) {
     }
 
     // Send out a Watchlist Check -- Demonstration
-    Check_Watchlist(user, type, true);
+    Check_Watchlist(user, type, false);
 }
