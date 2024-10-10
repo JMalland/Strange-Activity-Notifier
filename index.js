@@ -1,6 +1,6 @@
 const { Get_Watchlist, Get_Alerts, Get_Userdata, Get_Log_Channels, Build_Table, Reset_Guild_Data } = require('./components/WatchlistSQLHandler.js');
 const { Client, GatewayIntentBits, REST, Routes, Collection } = require('discord.js');
-const { Create_Embed, Filter_Report_Type } = require('./components/WatchlistEmbed.js');
+const { Check_Watchlist } = require('./components/WatchlistEmbed.js');
 const { Database } = require('./components/Database.js');
 const config = require("./config.json")
 const fs = require('fs');
